@@ -133,39 +133,88 @@ with st.expander("📐 跌坎结构示意图（图 B.4.1）", expanded=True):
     
     if os.path.exists(diagram_path):
         st.image(diagram_path, caption="图 B.4.1 跌坎计算示意图", use_container_width=True)
-        st.markdown("---")
     else:
-        # 备用文本图示
+        # 备用SVG图示
         st.markdown("""
-        <div style="background-color: #1e1e1e; padding: 20px; border-radius: 5px; font-family: monospace; color: #d4d4d4; font-size: 12px; line-height: 1.6;">
-        <pre style="margin: 0;">
-上游                                下游
-  ↓                                  ↓
-════════════════════════════════════════
-          闸坎顶面
-     ╱────────╲  θ (倾角)
-────╱          ╲────
-    │           │
-  H │           │         跌坎
-    │           │╲        
-════╧═══════════╧═╲═══════════════
-    ↑           ↑  ╲R (反弧)
-   hk          hdc  ╲___
-    ↕           ↕       ╲        hds
-────┴───────────┴────────╲────── ↕ ───
-       ↑                  ↓
-       │←─── Lm ───→│    河床
-       
-       Pd (闸坎与河底高差)
-       ↕
-════════════════════════════════════════
-              P (跌坎高度)
-              ↕
-────────────────────────────────────────
-        </pre>
-        </div>
+        <svg width="100%" height="400" style="background-color: #0e1117; border-radius: 5px;">
+            <!-- 上下游标注 -->
+            <text x="30" y="30" fill="#d4d4d4" font-size="14">上游 ↓</text>
+            <text x="450" y="30" fill="#d4d4d4" font-size="14">下游 ↓</text>
+            
+            <!-- 水位线 -->
+            <line x1="20" y1="50" x2="580" y2="50" stroke="#4a90e2" stroke-width="2"/>
+            
+            <!-- 闸坎顶面 -->
+            <text x="200" y="85" fill="#d4d4d4" font-size="12">闸坎顶面</text>
+            <line x1="140" y1="100" x2="180" y2="100" stroke="#e0e0e0" stroke-width="2"/>
+            <line x1="180" y1="100" x2="200" y2="110" stroke="#e0e0e0" stroke-width="2"/>
+            <text x="210" y="105" fill="#d4d4d4" font-size="11">θ (倾角)</text>
+            <line x1="200" y1="110" x2="240" y2="110" stroke="#e0e0e0" stroke-width="2"/>
+            
+            <!-- H标注 -->
+            <text x="40" y="120" fill="#ffa500" font-size="12" font-weight="bold">H</text>
+            <line x1="50" y1="130" x2="50" y2="160" stroke="#ffa500" stroke-width="2" stroke-dasharray="3,3"/>
+            
+            <!-- 跌坎主体 -->
+            <line x1="140" y1="100" x2="140" y2="160" stroke="#e0e0e0" stroke-width="3"/>
+            <line x1="240" y1="110" x2="240" y2="160" stroke="#e0e0e0" stroke-width="3"/>
+            <text x="280" y="145" fill="#d4d4d4" font-size="12">跌坎</text>
+            
+            <!-- 反弧 -->
+            <path d="M 240 160 Q 270 180, 300 200" stroke="#e0e0e0" stroke-width="3" fill="none"/>
+            <text x="310" y="175" fill="#d4d4d4" font-size="11">R (反弧)</text>
+            
+            <!-- 水深标注 hk, hdc -->
+            <text x="120" y="180" fill="#4a90e2" font-size="12" font-weight="bold">hk</text>
+            <line x1="130" y1="185" x2="130" y2="160" stroke="#4a90e2" stroke-width="1.5" marker-start="url(#arrow)" marker-end="url(#arrow)"/>
+            
+            <text x="220" y="190" fill="#4a90e2" font-size="12" font-weight="bold">hdc</text>
+            <line x1="235" y1="195" x2="235" y2="160" stroke="#4a90e2" stroke-width="1.5" marker-start="url(#arrow)" marker-end="url(#arrow)"/>
+            
+            <!-- 河床 -->
+            <line x1="20" y1="200" x2="300" y2="200" stroke="#8b4513" stroke-width="4"/>
+            <line x1="300" y1="200" x2="580" y2="230" stroke="#8b4513" stroke-width="4"/>
+            <text x="340" y="220" fill="#8b4513" font-size="12">河床</text>
+            
+            <!-- hds标注 -->
+            <text x="480" y="210" fill="#4a90e2" font-size="12" font-weight="bold">hds</text>
+            <line x1="490" y1="215" x2="490" y2="230" stroke="#4a90e2" stroke-width="1.5" marker-start="url(#arrow)" marker-end="url(#arrow)"/>
+            
+            <!-- Lm长度标注 -->
+            <line x1="140" y1="245" x2="240" y2="245" stroke="#ff6b6b" stroke-width="2" marker-start="url(#arrow2)" marker-end="url(#arrow2)"/>
+            <text x="170" y="240" fill="#ff6b6b" font-size="12" font-weight="bold">Lm</text>
+            
+            <!-- Pd标注 -->
+            <text x="120" y="280" fill="#ffa500" font-size="12" font-weight="bold">Pd</text>
+            <text x="145" y="285" fill="#d4d4d4" font-size="10">(闸坎与河底高差)</text>
+            <line x1="190" y1="290" x2="190" y2="200" stroke="#ffa500" stroke-width="2" stroke-dasharray="5,5" marker-start="url(#arrow3)" marker-end="url(#arrow3)"/>
+            
+            <!-- 基准线 -->
+            <line x1="20" y1="320" x2="580" y2="320" stroke="#666" stroke-width="3"/>
+            
+            <!-- P标注 -->
+            <text x="280" y="355" fill="#ff1744" font-size="14" font-weight="bold">P (跌坎高度)</text>
+            <line x1="300" y1="365" x2="300" y2="200" stroke="#ff1744" stroke-width="2.5" stroke-dasharray="5,5" marker-start="url(#arrow4)" marker-end="url(#arrow4)"/>
+            
+            <!-- 箭头定义 -->
+            <defs>
+                <marker id="arrow" markerWidth="10" markerHeight="10" refX="5" refY="5" orient="auto">
+                    <polygon points="0,5 5,2.5 5,7.5" fill="#4a90e2"/>
+                </marker>
+                <marker id="arrow2" markerWidth="10" markerHeight="10" refX="5" refY="5" orient="auto">
+                    <polygon points="0,5 5,2.5 5,7.5" fill="#ff6b6b"/>
+                </marker>
+                <marker id="arrow3" markerWidth="10" markerHeight="10" refX="5" refY="5" orient="auto">
+                    <polygon points="0,5 5,2.5 5,7.5" fill="#ffa500"/>
+                </marker>
+                <marker id="arrow4" markerWidth="10" markerHeight="10" refX="5" refY="5" orient="auto">
+                    <polygon points="0,5 5,2.5 5,7.5" fill="#ff1744"/>
+                </marker>
+            </defs>
+        </svg>
         """, unsafe_allow_html=True)
-        st.markdown("---")
+    
+    st.markdown("---")
     
     st.markdown("""
     **参数说明：**
